@@ -1,0 +1,186 @@
+from pymongo.mongo_client import MongoClient
+from bson.objectid import ObjectId
+from pymongo.server_api import ServerApi
+from flask_cors import CORS
+
+uri = 'mongodb+srv://aditya0405raj:1234@thread.dm2nz.mongodb.net/?retryWrites=true&w=majority&appName=thread'
+client = MongoClient(uri)
+
+db = client['PRODUCTS']
+products_collection = db['products']
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+products = [
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Wireless Earbuds",
+        "price": 49.99,
+        "verified": True,
+        "description": "High-quality wireless earbuds with noise cancellation.",
+        "dimensions": "2 x 1.5 x 1 inches",
+        "stock": 50,
+        "tags": ["electronics", "audio", "wireless", "noise cancellation"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Laptop Backpack",
+        "price": 35.00,
+        "verified": False,
+        "description": "Durable backpack with multiple compartments for laptops and accessories.",
+        "dimensions": "18 x 12 x 6 inches",
+        "stock": 30,
+        "tags": ["bags", "travel", "laptop", "accessories"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Coffee Maker",
+        "price": 79.95,
+        "verified": True,
+        "description": "Programmable coffee maker with 12-cup capacity.",
+        "dimensions": "10 x 8 x 14 inches",
+        "stock": 20,
+        "tags": ["kitchen", "appliances", "coffee", "programmable"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Running Shoes",
+        "price": 65.50,
+        "verified": True,
+        "description": "Lightweight running shoes with breathable mesh upper.",
+        "dimensions": "12 x 8 x 4 inches",
+        "stock": 40,
+        "tags": ["sports", "shoes", "running", "lightweight"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Smartphone",
+        "price": 599.00,
+        "verified": True,
+        "description": "Latest smartphone with high-resolution camera and fast processor.",
+        "dimensions": "6 x 3 x 0.3 inches",
+        "stock": 15,
+        "tags": ["electronics", "smartphone", "camera", "fast"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Yoga Mat",
+        "price": 19.99,
+        "verified": False,
+        "description": "Non-slip yoga mat for comfortable practice.",
+        "dimensions": "68 x 24 x 0.25 inches",
+        "stock": 60,
+        "tags": ["sports", "fitness", "yoga", "non-slip"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Book: The Alchemist",
+        "price": 12.99,
+        "verified": True,
+        "description": "A classic novel about following your dreams.",
+        "dimensions": "8 x 5 x 1 inches",
+        "stock": 80,
+        "tags": ["books", "literature", "fiction", "classic"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Bluetooth Speaker",
+        "price": 29.90,
+        "verified": False,
+        "description": "Portable Bluetooth speaker with long battery life.",
+        "dimensions": "5 x 3 x 2 inches",
+        "stock": 25,
+        "tags": ["electronics", "audio", "bluetooth", "portable"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Sunglasses",
+        "price": 15.95,
+        "verified": True,
+        "description": "UV-protected sunglasses with stylish design.",
+        "dimensions": "6 x 2 x 1 inches",
+        "stock": 35,
+        "tags": ["fashion", "accessories", "sunglasses", "UV protection"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Gaming Mouse",
+        "price": 45.00,
+        "verified": True,
+        "description": "High-precision gaming mouse with customizable buttons.",
+        "dimensions": "5 x 3 x 2 inches",
+        "stock": 10,
+        "tags": ["electronics", "gaming", "mouse", "precision"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Water Bottle",
+        "price": 9.99,
+        "verified": False,
+        "description": "Stainless steel water bottle with leak-proof lid.",
+        "dimensions": "10 x 3 inches",
+        "stock": 55,
+        "tags": ["kitchen", "hydration", "water bottle", "stainless steel"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Board Game: Monopoly",
+        "price": 25.50,
+        "verified": True,
+        "description": "Classic board game for family and friends.",
+        "dimensions": "16 x 16 x 2 inches",
+        "stock": 30,
+        "tags": ["games", "board games", "family", "classic"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Smartwatch",
+        "price": 149.90,
+        "verified": True,
+        "description": "Fitness tracker and smartwatch with heart rate monitor.",
+        "dimensions": "1.5 x 1.5 x 0.5 inches",
+        "stock": 20,
+        "tags": ["electronics", "smartwatch", "fitness", "heart rate"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Bicycle Helmet",
+        "price": 39.95,
+        "verified": False,
+        "description": "Safety helmet for cycling with adjustable straps.",
+        "dimensions": "10 x 8 x 6 inches",
+        "stock": 45,
+        "tags": ["sports", "cycling", "safety", "helmet"],
+        "reviews": [],
+    },
+    {
+        "seller": ObjectId("66db0f783898fbfe96b2f873"),
+        "name": "Painting: Starry Night",
+        "price": 89.00,
+        "verified": True,
+        "description": "Reproduction of Van Gogh's famous painting.",
+        "dimensions": "24 x 30 inches",
+        "stock": 5,
+        "tags": ["art", "painting", "Van Gogh", "classic"],
+        "reviews": [],
+    },
+]
+
+result = products_collection.insert_many(products)
+print(f'Inserted {len(result.inserted_ids)} products')
